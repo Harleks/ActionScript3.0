@@ -69,6 +69,7 @@ package
 		private var cursorsp1: Shape = new Shape(); //鼠标指针图形-十字
 		private var cursorsp2: Shape = new Shape(); //鼠标指针图形-圆形
 		public static const PI: Number = 3.141592653589793; //圆周率
+		private var movePoint: Boolean = false;
 
 		//构造函数 初始化界面 注册鼠标单击事件
 		public function DrawLineTool()
@@ -333,8 +334,15 @@ package
 				case "brush":
 					addChild(cursorsp2);
 					pic.removeEventListener(MouseEvent.MOUSE_MOVE, cursormoveHd1);
+				pic.removeEventListener(MouseEvent.MOUSE_MOVE, cursormoveHd2);
 					pic.addEventListener(MouseEvent.MOUSE_MOVE, brushmoveHd);
 					break;
+				case "pen":
+					pic.removeEventListener(MouseEvent.MOUSE_MOVE, cursormoveHd1);
+					pic.removeEventListener(MouseEvent.MOUSE_MOVE, brushmoveHd);
+					pic.addEventListener(MouseEvent.MOUSE_MOVE, cursormoveHd2);
+					break;
+
 				default:
 					pic.removeEventListener(MouseEvent.MOUSE_MOVE, brushmoveHd);
 					pic.addEventListener(MouseEvent.MOUSE_MOVE, cursormoveHd1);
@@ -345,41 +353,142 @@ package
 		//画图区域按下鼠标事件处理函数
 		private function downHd(e: MouseEvent)
 		{
-			downX = e.localX;
-			downY = e.localY;
-			var newPic: Shape = new Shape();
-			picArr.push(newPic);
-			pic.addChild(newPic);
-			newPic.graphics.moveTo(e.localX, e.localY);
-			pic.addEventListener(MouseEvent.MOUSE_MOVE, moveHd);
-
 			if (currentTool == "pen")
 			{
-
-			}
-
-			//橡皮擦按下后立即生效			
-			if (currentTool == "brush")
-			{
-				if (e.localX < _currentlineWidth * 5)
+				trace(e.target.name);
+				if (e.target.name == 'pic')
 				{
-					newPic.graphics.beginFill(0xffffff);
-					newPic.graphics.drawCircle(_currentlineWidth * 5, e.localY, _currentlineWidth * 5);
-					newPic.graphics.endFill();
+					movePoint = false;
+					downX = e.localX, downY = e.localY;
+					var newAnchorPoint: Sprite = new Sprite();
+					newAnchorPoint.graphics.lineStyle(1, anchorColor);
+					newAnchorPoint.graphics.beginFill(anchorColor);
+					newAnchorPoint.graphics.drawCircle(0, 0, 10);
+					newAnchorPoint.graphics.endFill();
+					newAnchorPoint.x = e.localX;
+					newAnchorPoint.y = e.localY;
+					newAnchorPoint.name = 'apoint'.concat(anchorPointArr.length);
+
+					anchorPointArr.push(newAnchorPoint);
+					anchorNum += 1;
+					pic.addChild(newAnchorPoint);
+					pic.addEventListener(MouseEvent.MOUSE_MOVE, moveHd);
 				}
-				else
+
+				else if (e.target.name.substr(1, 5) == 'point')
 				{
-					newPic.graphics.beginFill(0xffffff);
-					newPic.graphics.drawCircle(e.localX, e.localY, _currentlineWidth * 5);
-					newPic.graphics.endFill();
+					movePoint = true;
+					moveName = e.target.name;
+					pic.addEventListener(MouseEvent.MOUSE_MOVE, movePointHd);
+				}
+			}
+			else
+			{
+				downX = e.localX;
+				downY = e.localY;
+				var newPic: Shape = new Shape();
+				picArr.push(newPic);
+				pic.addChild(newPic);
+				newPic.graphics.moveTo(e.localX, e.localY);
+				pic.addEventListener(MouseEvent.MOUSE_MOVE, moveHd);
+
+				//橡皮擦按下后立即生效			
+				if (currentTool == "brush")
+				{
+					if (e.localX < _currentlineWidth * 5)
+					{
+						newPic.graphics.beginFill(0xffffff);
+						newPic.graphics.drawCircle(_currentlineWidth * 5, e.localY, _currentlineWidth * 5);
+						newPic.graphics.endFill();
+					}
+					else
+					{
+						newPic.graphics.beginFill(0xffffff);
+						newPic.graphics.drawCircle(e.localX, e.localY, _currentlineWidth * 5);
+						newPic.graphics.endFill();
+					}
 				}
 			}
 		}
+
 
 		//画图区域抬起鼠标事件处理函数
 
 		private function upHd(e: MouseEvent)
 		{
+			if (currentTool == 'pen')
+			{
+				if (movePoint)
+				{
+					pic.removeEventListener(MouseEvent.MOUSE_MOVE, movePointHd);
+				}
+				else if (rightControlPointArr.length < anchorPointArr.length)
+				{
+					var newRightControlPoint: Sprite = new Sprite();
+					newRightControlPoint.graphics.lineStyle(1, controlColor);
+					newRightControlPoint.graphics.beginFill(controlColor);
+					newRightControlPoint.graphics.drawCircle(0, 0, 10);
+					newRightControlPoint.graphics.endFill();
+					newRightControlPoint.x = e.localX;
+					newRightControlPoint.y = e.localY;
+					newRightControlPoint.name = 'rpoint'.concat(rightControlPointArr.length);
+
+					rightControlPointArr.push(newRightControlPoint);
+					if (rightControlPointArr.length == 1)
+					{
+						stage.addChild(rightControlPointArr[rightControlPointArr.length - 1]);
+					}
+
+					else if (rightControlPointArr.length > 1)
+					{
+						stage.addChild(rightControlPointArr[rightControlPointArr.length - 2]);
+					}
+
+					var newLeftControlPoint: Sprite = new Sprite();
+					newLeftControlPoint.graphics.lineStyle(1, controlColor);
+					newLeftControlPoint.graphics.beginFill(controlColor);
+					newLeftControlPoint.graphics.drawCircle(0, 0, 10);
+					newLeftControlPoint.graphics.endFill();
+					newLeftControlPoint.x = 2 * downX - e.localX;
+					newLeftControlPoint.y = 2 * downY - e.localY;
+					newLeftControlPoint.name = 'lpoint'.concat(leftControlPointArr.length);
+					leftControlPointArr.push(newLeftControlPoint);
+					if (leftControlPointArr.length > 1)
+					{
+						stage.addChild(newLeftControlPoint);
+					}
+				}
+				curvesp.graphics.clear();
+				guidelinesp.graphics.clear();
+				var i: uint = 1;
+				while (i < anchorNum)
+				{
+					curvesp.graphics.lineStyle(_currentlineWidth, currentColor);
+					curvesp.graphics.moveTo(anchorPointArr[i - 1].x, anchorPointArr[i - 1].y);
+					curvesp.graphics.cubicCurveTo(rightControlPointArr[i - 1].x, rightControlPointArr[i - 1].y, leftControlPointArr[i].x, leftControlPointArr[i].y, anchorPointArr[i].x, anchorPointArr[i].y);
+
+					guidelinesp.graphics.lineStyle(2, 0x000000, 0.3);
+					guidelinesp.graphics.moveTo(anchorPointArr[i - 1].x, anchorPointArr[i - 1].y);
+					guidelinesp.graphics.lineTo(rightControlPointArr[i - 1].x, rightControlPointArr[i - 1].y);
+					guidelinesp.graphics.lineTo(leftControlPointArr[i].x, leftControlPointArr[i].y);
+					guidelinesp.graphics.lineTo(anchorPointArr[i].x, anchorPointArr[i].y);
+
+					i += 1;
+				}
+				stage.addChild(curvesp);
+				stage.addChild(guidelinesp);
+				i = 1;
+				while (i < anchorNum)
+				{
+					stage.addChild(anchorPointArr[i - 1]);
+					stage.addChild(leftControlPointArr[i]);
+					stage.addChild(anchorPointArr[i]);
+					stage.addChild(rightControlPointArr[i - 1]);
+					i += 1;
+				}
+
+			}
+
 			pic.removeEventListener(MouseEvent.MOUSE_MOVE, moveHd);
 		}
 
@@ -389,15 +498,15 @@ package
 		{
 			Mouse.hide();
 			toolRegion.addEventListener(MouseEvent.MOUSE_MOVE, cursormoveHd2);
-			cursorsp1.x = e.localX + 360;
-			cursorsp1.y = e.localY;
+			cursorsp1.x = e.stageX;
+			cursorsp1.y = e.stageY;
 		}
 		private function brushmoveHd(e: MouseEvent)
 		{
 			Mouse.hide();
 			toolRegion.addEventListener(MouseEvent.MOUSE_MOVE, cursormoveHd2);
-			cursorsp2.x = e.localX + 360;
-			cursorsp2.y = e.localY;
+			cursorsp2.x = e.stageX;
+			cursorsp2.y = e.stageY;
 		}
 		private function cursormoveHd2(e: MouseEvent)
 		{
@@ -407,6 +516,25 @@ package
 
 		}
 
+		//画图区域移动点事件处理函数
+		private function movePointHd(e: MouseEvent)
+		{
+			switch (moveName.substr(0, 1))
+			{
+				case 'a':
+					anchorPointArr[uint(moveName.substr(6, moveName.length - 6))].x = e.localX;
+					anchorPointArr[uint(moveName.substr(6, moveName.length - 6))].y = e.localY;
+					break;
+				case 'r':
+					rightControlPointArr[uint(moveName.substr(6, moveName.length - 6))].x = e.localX;
+					rightControlPointArr[uint(moveName.substr(6, moveName.length - 6))].y = e.localY;
+					break;
+				case 'l':
+					leftControlPointArr[uint(moveName.substr(6, moveName.length - 6))].x = e.localX;
+					leftControlPointArr[uint(moveName.substr(6, moveName.length - 6))].y = e.localY;
+					break;
+			}
+		}
 		//画图区域移动鼠标事件处理函数
 		private function moveHd(e: MouseEvent)
 		{
@@ -417,6 +545,7 @@ package
 			//待画线的总长度
 			if (_linelength == 0) return;
 			if (e.localX < 0) return; //超出画板左侧边界时
+
 
 			switch (currentTool)
 			{

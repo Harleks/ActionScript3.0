@@ -23,7 +23,7 @@
 		private var moveName: String = new String();//移动的点的名字
 		private var controlColor: uint = 0xff0000;//控制点颜色
 		private var anchorColor: uint = 0x0000ff;//锚点颜色
-		var movePoint: Boolean = false;
+		private var movePoint: Boolean = false;
 		public function pencilTool()
 		{
 			stage.addEventListener(MouseEvent.MOUSE_DOWN, downHd);
