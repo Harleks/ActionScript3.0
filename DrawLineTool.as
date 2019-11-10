@@ -372,7 +372,6 @@ package
 					anchorPointArr.push(newAnchorPoint);
 					anchorNum += 1;
 					pic.addChild(newAnchorPoint);
-					pic.addEventListener(MouseEvent.MOUSE_MOVE, moveHd);
 				}
 
 				else if (e.target.name.substr(1, 5) == 'point')
@@ -436,12 +435,12 @@ package
 					rightControlPointArr.push(newRightControlPoint);
 					if (rightControlPointArr.length == 1)
 					{
-						stage.addChild(rightControlPointArr[rightControlPointArr.length - 1]);
+						pic.addChild(rightControlPointArr[rightControlPointArr.length - 1]);
 					}
 
 					else if (rightControlPointArr.length > 1)
 					{
-						stage.addChild(rightControlPointArr[rightControlPointArr.length - 2]);
+						pic.addChild(rightControlPointArr[rightControlPointArr.length - 2]);
 					}
 
 					var newLeftControlPoint: Sprite = new Sprite();
@@ -455,7 +454,7 @@ package
 					leftControlPointArr.push(newLeftControlPoint);
 					if (leftControlPointArr.length > 1)
 					{
-						stage.addChild(newLeftControlPoint);
+						pic.addChild(newLeftControlPoint);
 					}
 				}
 				curvesp.graphics.clear();
@@ -475,15 +474,15 @@ package
 
 					i += 1;
 				}
-				stage.addChild(curvesp);
-				stage.addChild(guidelinesp);
+				pic.addChild(curvesp);
+				pic.addChild(guidelinesp);
 				i = 1;
 				while (i < anchorNum)
 				{
-					stage.addChild(anchorPointArr[i - 1]);
-					stage.addChild(leftControlPointArr[i]);
-					stage.addChild(anchorPointArr[i]);
-					stage.addChild(rightControlPointArr[i - 1]);
+					pic.addChild(anchorPointArr[i - 1]);
+					pic.addChild(leftControlPointArr[i]);
+					pic.addChild(anchorPointArr[i]);
+					pic.addChild(rightControlPointArr[i - 1]);
 					i += 1;
 				}
 
@@ -522,16 +521,16 @@ package
 			switch (moveName.substr(0, 1))
 			{
 				case 'a':
-					anchorPointArr[uint(moveName.substr(6, moveName.length - 6))].x = e.localX;
-					anchorPointArr[uint(moveName.substr(6, moveName.length - 6))].y = e.localY;
+					anchorPointArr[uint(moveName.substr(6, moveName.length - 6))].x = e.stageX-360;
+					anchorPointArr[uint(moveName.substr(6, moveName.length - 6))].y = e.stageY;
 					break;
 				case 'r':
-					rightControlPointArr[uint(moveName.substr(6, moveName.length - 6))].x = e.localX;
-					rightControlPointArr[uint(moveName.substr(6, moveName.length - 6))].y = e.localY;
+					rightControlPointArr[uint(moveName.substr(6, moveName.length - 6))].x = e.stageX-360;
+					rightControlPointArr[uint(moveName.substr(6, moveName.length - 6))].y = e.stageY;
 					break;
 				case 'l':
-					leftControlPointArr[uint(moveName.substr(6, moveName.length - 6))].x = e.localX;
-					leftControlPointArr[uint(moveName.substr(6, moveName.length - 6))].y = e.localY;
+					leftControlPointArr[uint(moveName.substr(6, moveName.length - 6))].x = e.stageX-360;
+					leftControlPointArr[uint(moveName.substr(6, moveName.length - 6))].y = e.stageY;
 					break;
 			}
 		}
