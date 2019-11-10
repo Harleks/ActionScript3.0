@@ -7,13 +7,11 @@
 //---------------------------------------------------------------------------------------
 //目前bug：
 //橡皮擦工具生效在按下鼠标后 而非抬起鼠标时
-<<<<<<< HEAD
 //波浪线最小绘制单位为半个圆弧
-=======
 //波浪线最小绘制单位为半个圆弧
->>>>>>> ccaa775c44d9c38a97443a28be53aa1d791d940d
 //11.5更新：钢笔、铅笔工具
-package {
+package
+{
 	import flash.display.Sprite;
 	import flash.display.MovieClip;
 	import flash.display.Shape;
@@ -26,14 +24,12 @@ package {
 	import flash.text.TextField;
 	import flash.text.TextFormat;
 	import flash.ui.Mouse;
-<<<<<<< HEAD
 	import flash.geom.Point;
-=======
 	import flash.geom.Point;
->>>>>>> ccaa775c44d9c38a97443a28be53aa1d791d940d
 
 	public dynamic
-	class DrawLineTool extends MovieClip {
+	class DrawLineTool extends MovieClip
+	{
 		private var pic: Sprite = new Sprite(); //绘图区域
 		private var toolRegion: Sprite = new Sprite(); //工具区域
 		private var currentTool: String = ""; //当前选择的工具
@@ -41,7 +37,6 @@ package {
 		private var _currentlineWidth: uint = 1; //非0值的线条宽度
 		private var currentColor: uint = 0x000000; //当前颜色
 		private var downX: Number, downY: Number; //按下鼠标的位置
-<<<<<<< HEAD
 		private var picArr: Array = new Array(); //保存图形的数组
 		private var anchorPointArr: Array = new Array(); //保存锚点的数组
 		private var leftControlPointArr: Array = new Array(); //保存左控制点的数组
@@ -49,22 +44,10 @@ package {
 		private var curveArr: Array = new Array(); //保存曲线的数组
 		private var curvesp: Sprite = new Sprite(); //画的曲线
 		private var guidelinesp: Sprite = new Sprite(); //辅助直线
-		private var moveName: String = new String();//移动的点的名字
-		private var controlColor: uint = 0xff0000;//控制点颜色
-		private var anchorColor: uint = 0x0000ff;//锚点颜色
-=======
-		private var picArr: Array = new Array(); //保存图形的数组
-		private var anchorPointArr: Array = new Array(); //保存锚点的数组
-		private var leftControlPointArr: Array = new Array(); //保存左控制点的数组
-		private var rightControlPointArr: Array = new Array(); //保存右控制点的数组
-		private var curveArr: Array = new Array(); //保存曲线的数组
-		private var curvesp: Sprite = new Sprite(); //画的曲线
-		private var guidelinesp: Sprite = new Sprite(); //辅助直线
-		private var moveName: String = new String();//移动的点的名字
-		private var controlColor: uint = 0xff0000;//控制点颜色
-		private var anchorColor: uint = 0x0000ff;//锚点颜色
->>>>>>> ccaa775c44d9c38a97443a28be53aa1d791d940d
-		private var anchorNum: uint = 0;//锚点的数量
+		private var moveName: String = new String(); //移动的点的名字
+		private var controlColor: uint = 0xff0000; //控制点颜色
+		private var anchorColor: uint = 0x0000ff; //锚点颜色
+		private var anchorNum: uint = 0; //锚点的数量
 		private var toolBox: Shape = new Shape(); //工具选择指示框
 		private var line: SimpleButton = new SimpleButton(); //直线按钮
 		private var linesp: Shape = new Shape(); //直线按钮上的图形
@@ -88,7 +71,8 @@ package {
 		public static const PI: Number = 3.141592653589793; //圆周率
 
 		//构造函数 初始化界面 注册鼠标单击事件
-		public function DrawLineTool() {
+		public function DrawLineTool()
+		{
 			//绘制工具区
 			drawToolRegion();
 			//绘制绘图区
@@ -116,13 +100,15 @@ package {
 
 
 		//--------------------------------工具区域---------------------------------------------
-		private function drawToolRegion() {
+		private function drawToolRegion()
+		{
 			toolRegion.graphics.beginFill(0x535353);
 			toolRegion.graphics.drawRect(0, 0, 360, 720);
 			toolRegion.graphics.endFill();
 			addChild(toolRegion);
 		}
-		private function drawBox() {
+		private function drawBox()
+		{
 			//绘制指示框
 			toolBox.graphics.lineStyle(1, 0x000000, 0);
 			toolBox.graphics.beginFill(0x202020, 0.8);
@@ -133,7 +119,8 @@ package {
 		}
 
 		//绘制工具按钮
-		private function drawBtn() {
+		private function drawBtn()
+		{
 			//直线工具
 			line.name = "line";
 			line.downState = new BtnStatusShape2(0x303030, 60, 60);
@@ -161,9 +148,11 @@ package {
 			dashedlinesp.graphics.lineStyle(2, 0xC3C3C3);
 			dashedlinesp.graphics.moveTo(160, 90 + 60 - 10);
 			_x = 160;
-			while (true) {
+			while (true)
+			{
 				_x += 40 / 7;
-				if ((_x - 160) > 40) {
+				if ((_x - 160) > 40)
+				{
 					dashedlinesp.graphics.lineTo(200, 90 + 60 - 10 - 40);
 					break;
 				}
@@ -185,7 +174,8 @@ package {
 			addChild(dottedline);
 
 			_x = 160;
-			while (true) {
+			while (true)
+			{
 				dottedlinesp.graphics.beginFill(0xC3C3C3);
 				dottedlinesp.graphics.drawCircle(_x, 210 - (_x - 160), 2);
 				dottedlinesp.graphics.endFill();
@@ -208,7 +198,8 @@ package {
 			var _wavylinespspace = 5;
 			wavylinesp.graphics.lineTo(160, 280);
 			wavylinesp.graphics.lineStyle(2, 0xC3C3C3);
-			while (true) {
+			while (true)
+			{
 				wavylinesp.graphics.curveTo(_x, 280 - (_x - 160) - _wavylinespspace, _x + _wavylinespspace, 280 - (_x - 160) - _wavylinespspace);
 				_x += _wavylinespspace;
 				if ((_x + _wavylinespspace - 160) > 40)
@@ -230,16 +221,16 @@ package {
 			pen.y = 300;
 			addChild(pen);
 
-<<<<<<< HEAD
-			
+
+
 			pensp.x = 160;
-			pensp.y = 430-70;
+			pensp.y = 430 - 70;
 			pensp.graphics.lineStyle(2, 0xC3C3C3);
 			pensp.graphics.beginFill(0xC3C3C3);
 			pensp.graphics.moveTo(0, 4);
 			pensp.graphics.lineTo(20, 14);
-			pensp.graphics.lineTo(35, 9);			
-			pensp.graphics.lineTo(35, -9);			
+			pensp.graphics.lineTo(35, 9);
+			pensp.graphics.lineTo(35, -9);
 			pensp.graphics.lineTo(20, -14);
 			pensp.graphics.lineTo(0, -4);
 			pensp.graphics.lineTo(0, 4);
@@ -251,45 +242,12 @@ package {
 			pensp.graphics.moveTo(0, 0);
 			pensp.graphics.lineTo(18, 0);
 			pensp.graphics.beginFill(0x535353);
-			pensp.graphics.drawCircle(18,0,1);
+			pensp.graphics.drawCircle(18, 0, 1);
 			pensp.graphics.endFill();
 			pensp.rotation -= 45;
 			pensp.x = 162;
-			pensp.y = 420-70;
-						
-			
-			
-=======
-			
-			pensp.x = 160;
-			pensp.y = 430-70;
-			pensp.graphics.lineStyle(2, 0xC3C3C3);
-			pensp.graphics.beginFill(0xC3C3C3);
-			pensp.graphics.moveTo(0, 4);
-			pensp.graphics.lineTo(20, 14);
-			pensp.graphics.lineTo(35, 9);			
-			pensp.graphics.lineTo(35, -9);			
-			pensp.graphics.lineTo(20, -14);
-			pensp.graphics.lineTo(0, -4);
-			pensp.graphics.lineTo(0, 4);
-			pensp.graphics.endFill();
-			pensp.graphics.beginFill(0xC3C3C3);
-			pensp.graphics.drawRect(40, -9, 8, 18);
-			pensp.graphics.endFill();
-			pensp.graphics.lineStyle(2, 0x535353);
-			pensp.graphics.moveTo(0, 0);
-			pensp.graphics.lineTo(18, 0);
-			pensp.graphics.beginFill(0x535353);
-			pensp.graphics.drawCircle(18,0,1);
-			pensp.graphics.endFill();
-			pensp.rotation -= 45;
-			pensp.x = 162;
-			pensp.y = 420-70;
-						
-			
-			
->>>>>>> ccaa775c44d9c38a97443a28be53aa1d791d940d
-			
+			pensp.y = 420 - 70;
+
 			//铅笔工具
 			pencil.name = "pencil";
 			pencil.downState = new BtnStatusShape2(0x303030, 60, 60);
@@ -348,14 +306,12 @@ package {
 		}
 		//--------------------------------画图区域---------------------------------------------
 		//绘制画板
-		private function drawPic() {
+		private function drawPic()
+		{
 			pic.x = 360;
-<<<<<<< HEAD
 			pic.y = 0;
-=======
 			pic.y = 0;
->>>>>>> ccaa775c44d9c38a97443a28be53aa1d791d940d
-			pic.name ='pic';
+			pic.name = 'pic';
 			pic.graphics.beginFill(0xFFFFFF);
 			pic.graphics.drawRect(0, 0, 920, 720);
 			pic.graphics.endFill();
@@ -363,7 +319,8 @@ package {
 		}
 
 		//工具按钮单击事件处理函数，画图区域注册鼠标事件
-		private function chooseTool(e: MouseEvent) {
+		private function chooseTool(e: MouseEvent)
+		{
 			toolBox.x = e.target.x;
 			toolBox.y = e.target.y;
 			currentTool = e.target.name;
@@ -371,7 +328,8 @@ package {
 			pic.addEventListener(MouseEvent.MOUSE_DOWN, downHd);
 			pic.addEventListener(MouseEvent.MOUSE_UP, upHd);
 			toolRegion.addEventListener(MouseEvent.MOUSE_UP, upHd);
-			switch (currentTool) {
+			switch (currentTool)
+			{
 				case "brush":
 					addChild(cursorsp2);
 					pic.removeEventListener(MouseEvent.MOUSE_MOVE, cursormoveHd1);
@@ -385,40 +343,32 @@ package {
 		}
 
 		//画图区域按下鼠标事件处理函数
-		private function downHd(e: MouseEvent) {
+		private function downHd(e: MouseEvent)
+		{
 			downX = e.localX;
 			downY = e.localY;
 			var newPic: Shape = new Shape();
 			picArr.push(newPic);
 			pic.addChild(newPic);
 			newPic.graphics.moveTo(e.localX, e.localY);
-<<<<<<< HEAD
 			pic.addEventListener(MouseEvent.MOUSE_MOVE, moveHd);
-			
-			if (currentTool == "pen"){
-				
+
+			if (currentTool == "pen")
+			{
+
 			}
-			
-			
-			
-=======
-			pic.addEventListener(MouseEvent.MOUSE_MOVE, moveHd);
-			
-			if (currentTool == "pen"){
-				
-			}
-			
-			
-			
->>>>>>> ccaa775c44d9c38a97443a28be53aa1d791d940d
-			
+
 			//橡皮擦按下后立即生效			
-			if (currentTool == "brush") {
-				if (e.localX < _currentlineWidth * 5) {
+			if (currentTool == "brush")
+			{
+				if (e.localX < _currentlineWidth * 5)
+				{
 					newPic.graphics.beginFill(0xffffff);
 					newPic.graphics.drawCircle(_currentlineWidth * 5, e.localY, _currentlineWidth * 5);
 					newPic.graphics.endFill();
-				} else {
+				}
+				else
+				{
 					newPic.graphics.beginFill(0xffffff);
 					newPic.graphics.drawCircle(e.localX, e.localY, _currentlineWidth * 5);
 					newPic.graphics.endFill();
@@ -427,30 +377,30 @@ package {
 		}
 
 		//画图区域抬起鼠标事件处理函数
-<<<<<<< HEAD
-		private function upHd(e: MouseEvent) {
-=======
-		private function upHd(e: MouseEvent) {
->>>>>>> ccaa775c44d9c38a97443a28be53aa1d791d940d
-			
+
+		private function upHd(e: MouseEvent)
+		{
 			pic.removeEventListener(MouseEvent.MOUSE_MOVE, moveHd);
 		}
 
 		//画图区域移动十字光标事件处理函数
 
-		private function cursormoveHd1(e: MouseEvent) {
+		private function cursormoveHd1(e: MouseEvent)
+		{
 			Mouse.hide();
 			toolRegion.addEventListener(MouseEvent.MOUSE_MOVE, cursormoveHd2);
 			cursorsp1.x = e.localX + 360;
 			cursorsp1.y = e.localY;
 		}
-		private function brushmoveHd(e: MouseEvent) {
+		private function brushmoveHd(e: MouseEvent)
+		{
 			Mouse.hide();
 			toolRegion.addEventListener(MouseEvent.MOUSE_MOVE, cursormoveHd2);
 			cursorsp2.x = e.localX + 360;
 			cursorsp2.y = e.localY;
 		}
-		private function cursormoveHd2(e: MouseEvent) {
+		private function cursormoveHd2(e: MouseEvent)
+		{
 			cursorsp1.x = -100;
 			cursorsp2.x = -100;
 			Mouse.show();
@@ -458,7 +408,8 @@ package {
 		}
 
 		//画图区域移动鼠标事件处理函数
-		private function moveHd(e: MouseEvent) {
+		private function moveHd(e: MouseEvent)
+		{
 			var newPic: Shape = picArr[picArr.length - 1];
 			_x = downX; //绘制点的x坐标
 			_y = downY; //绘制点的y坐标			
@@ -467,7 +418,8 @@ package {
 			if (_linelength == 0) return;
 			if (e.localX < 0) return; //超出画板左侧边界时
 
-			switch (currentTool) {
+			switch (currentTool)
+			{
 				//实线
 				case "line":
 					if (e.localX < currentlineWidth / 2) return; //超出画板左侧边界时
@@ -484,12 +436,14 @@ package {
 					newPic.graphics.lineStyle(currentlineWidth, currentColor);
 					var _perdashedlinelength: Number = _currentlineWidth * 5; //每个虚线段的长度
 					var _space: Number = _perdashedlinelength + 2 * currentlineWidth; //实线之间的间距
-					while (true) {
+					while (true)
+					{
 						//画一小段虚线				
 						_x += _perdashedlinelength * (e.localX - downX) / _linelength;
 						_y += _perdashedlinelength * (e.localY - downY) / _linelength;
 						//超过待画长度停止绘制
-						if (Math.pow(_x - downX, 2) + Math.pow(_y - downY, 2) > Math.pow(e.localX - downX, 2) + Math.pow(e.localY - downY, 2)) {
+						if (Math.pow(_x - downX, 2) + Math.pow(_y - downY, 2) > Math.pow(e.localX - downX, 2) + Math.pow(e.localY - downY, 2))
+						{
 							newPic.graphics.lineTo(e.localX, e.localY);
 							break;
 						}
@@ -508,11 +462,15 @@ package {
 				case "dottedline":
 					newPic.graphics.clear();
 					var _dotspace = _currentlineWidth * 5;
-					while (true) {
+					while (true)
+					{
 						newPic.graphics.beginFill(currentColor);
-						if (currentlineWidth == 0) {
+						if (currentlineWidth == 0)
+						{
 							newPic.graphics.drawCircle(_x, _y, 1);
-						} else {
+						}
+						else
+						{
 							newPic.graphics.drawCircle(_x, _y, currentlineWidth);
 						}
 						newPic.graphics.endFill();
@@ -531,7 +489,8 @@ package {
 					newPic.graphics.lineStyle(currentlineWidth, currentColor);
 					var _perwavylinelength: Number = _currentlineWidth * 5; //每个波浪线段的长度
 					var _angle: Number = Math.atan2(-(e.localY - downY), e.localX - downX);
-					while (true) {
+					while (true)
+					{
 						//超出画板左侧边界时
 						if (_x + _perwavylinelength * (e.localX - downX) / _linelength < currentlineWidth / 2) return;
 
@@ -539,7 +498,8 @@ package {
 						_x += _perwavylinelength * (e.localX - downX) / _linelength;
 						_y += _perwavylinelength * (e.localY - downY) / _linelength;
 						//绘制点超出鼠标移动点时停止绘制
-						if (Math.pow(_x - downX, 2) + Math.pow(_y - downY, 2) > Math.pow(e.localX - downX, 2) + Math.pow(e.localY - downY, 2)) {
+						if (Math.pow(_x - downX, 2) + Math.pow(_y - downY, 2) > Math.pow(e.localX - downX, 2) + Math.pow(e.localY - downY, 2))
+						{
 							break;
 						}
 						if (_x + _perwavylinelength * (e.localX - downX) / _linelength < currentlineWidth / 2) return;
@@ -548,25 +508,23 @@ package {
 						_x += _perwavylinelength * (e.localX - downX) / _linelength;
 						_y += _perwavylinelength * (e.localY - downY) / _linelength;
 
-						if (Math.pow(_x - downX, 2) + Math.pow(_y - downY, 2) > Math.pow(e.localX - downX, 2) + Math.pow(e.localY - downY, 2)) {
+						if (Math.pow(_x - downX, 2) + Math.pow(_y - downY, 2) > Math.pow(e.localX - downX, 2) + Math.pow(e.localY - downY, 2))
+						{
 							break;
 						}
 					}
 					break;
 
 					//钢笔
-<<<<<<< HEAD
 				case "pen":
-					
-=======
-				case "pen":
-					
->>>>>>> ccaa775c44d9c38a97443a28be53aa1d791d940d
-				   break;
+
+
+					break;
 
 					//铅笔
 				case "pencil":
-					if (e.localX < _currentlineWidth / 2) {
+					if (e.localX < _currentlineWidth / 2)
+					{
 						newPic.graphics.lineTo(_currentlineWidth / 2, e.localY);
 						return;
 					} //超出画板左侧边界时
@@ -577,11 +535,14 @@ package {
 					//橡皮擦
 				case "brush":
 					//超出画板左侧边界时
-					if (e.localX < _currentlineWidth * 5) {
+					if (e.localX < _currentlineWidth * 5)
+					{
 						newPic.graphics.beginFill(0xffffff);
 						newPic.graphics.drawCircle(_currentlineWidth * 5, e.localY, _currentlineWidth * 5);
 						newPic.graphics.endFill();
-					} else {
+					}
+					else
+					{
 						newPic.graphics.beginFill(0xffffff);
 						newPic.graphics.drawCircle(e.localX, e.localY, _currentlineWidth * 5);
 						newPic.graphics.endFill();
@@ -592,7 +553,8 @@ package {
 
 		//--------------------------------调色板区域---------------------------------------------
 
-		private function drawColorPlate() {
+		private function drawColorPlate()
+		{
 			//ColorPicker组件
 			myColorPicker.addEventListener(ColorPickerEvent.CHANGE, pickColor);
 			myColorPicker.setSize(160, 20);
@@ -614,12 +576,14 @@ package {
 			addChild(tf);
 
 		}
-		private function pickColor(e: ColorPickerEvent): void {
+		private function pickColor(e: ColorPickerEvent): void
+		{
 			currentColor = e.color;
 		}
 
 		//--------------------------------选择线条宽度---------------------------------------------
-		private function drawSlider() {
+		private function drawSlider()
+		{
 			//Slider组件
 			lineWidthSlider.move(100, 550);
 			lineWidthSlider.setSize(160, 3);
@@ -645,7 +609,8 @@ package {
 			tf.selectable = false;
 			addChild(tf);
 		}
-		private function chooseLineWidth(e: Event) {
+		private function chooseLineWidth(e: Event)
+		{
 			currentlineWidth = lineWidthSlider.value;
 			//设置非零的线宽 避免根据线宽设置的间距或线条长度为0
 			if (currentlineWidth == 0)
@@ -660,7 +625,8 @@ package {
 		}
 
 		//--------------------------------鼠标指针---------------------------------------------
-		private function drawCursor() {
+		private function drawCursor()
+		{
 			//十字指针
 			cursorsp1.graphics.lineStyle(2, 0x000000);
 			cursorsp1.x = -100;
