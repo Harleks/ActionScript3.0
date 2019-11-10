@@ -25,7 +25,6 @@ package
 	import flash.text.TextFormat;
 	import flash.ui.Mouse;
 	import flash.geom.Point;
-	import flash.geom.Point;
 
 	public dynamic
 	class DrawLineTool extends MovieClip
@@ -310,7 +309,6 @@ package
 		private function drawPic()
 		{
 			pic.x = 360;
-			pic.y = 0;
 			pic.y = 0;
 			pic.name = 'pic';
 			pic.graphics.beginFill(0xFFFFFF);
