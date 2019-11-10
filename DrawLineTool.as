@@ -7,7 +7,11 @@
 //---------------------------------------------------------------------------------------
 //目前bug：
 //橡皮擦工具生效在按下鼠标后 而非抬起鼠标时
+<<<<<<< HEAD
 //波浪线最小绘制单位为半个圆弧
+=======
+//波浪线最小绘制单位为半个圆弧
+>>>>>>> ccaa775c44d9c38a97443a28be53aa1d791d940d
 //11.5更新：钢笔、铅笔工具
 package {
 	import flash.display.Sprite;
@@ -22,7 +26,11 @@ package {
 	import flash.text.TextField;
 	import flash.text.TextFormat;
 	import flash.ui.Mouse;
+<<<<<<< HEAD
 	import flash.geom.Point;
+=======
+	import flash.geom.Point;
+>>>>>>> ccaa775c44d9c38a97443a28be53aa1d791d940d
 
 	public dynamic
 	class DrawLineTool extends MovieClip {
@@ -33,6 +41,7 @@ package {
 		private var _currentlineWidth: uint = 1; //非0值的线条宽度
 		private var currentColor: uint = 0x000000; //当前颜色
 		private var downX: Number, downY: Number; //按下鼠标的位置
+<<<<<<< HEAD
 		private var picArr: Array = new Array(); //保存图形的数组
 		private var anchorPointArr: Array = new Array(); //保存锚点的数组
 		private var leftControlPointArr: Array = new Array(); //保存左控制点的数组
@@ -43,6 +52,18 @@ package {
 		private var moveName: String = new String();//移动的点的名字
 		private var controlColor: uint = 0xff0000;//控制点颜色
 		private var anchorColor: uint = 0x0000ff;//锚点颜色
+=======
+		private var picArr: Array = new Array(); //保存图形的数组
+		private var anchorPointArr: Array = new Array(); //保存锚点的数组
+		private var leftControlPointArr: Array = new Array(); //保存左控制点的数组
+		private var rightControlPointArr: Array = new Array(); //保存右控制点的数组
+		private var curveArr: Array = new Array(); //保存曲线的数组
+		private var curvesp: Sprite = new Sprite(); //画的曲线
+		private var guidelinesp: Sprite = new Sprite(); //辅助直线
+		private var moveName: String = new String();//移动的点的名字
+		private var controlColor: uint = 0xff0000;//控制点颜色
+		private var anchorColor: uint = 0x0000ff;//锚点颜色
+>>>>>>> ccaa775c44d9c38a97443a28be53aa1d791d940d
 		private var anchorNum: uint = 0;//锚点的数量
 		private var toolBox: Shape = new Shape(); //工具选择指示框
 		private var line: SimpleButton = new SimpleButton(); //直线按钮
@@ -209,6 +230,7 @@ package {
 			pen.y = 300;
 			addChild(pen);
 
+<<<<<<< HEAD
 			
 			pensp.x = 160;
 			pensp.y = 430-70;
@@ -237,6 +259,36 @@ package {
 						
 			
 			
+=======
+			
+			pensp.x = 160;
+			pensp.y = 430-70;
+			pensp.graphics.lineStyle(2, 0xC3C3C3);
+			pensp.graphics.beginFill(0xC3C3C3);
+			pensp.graphics.moveTo(0, 4);
+			pensp.graphics.lineTo(20, 14);
+			pensp.graphics.lineTo(35, 9);			
+			pensp.graphics.lineTo(35, -9);			
+			pensp.graphics.lineTo(20, -14);
+			pensp.graphics.lineTo(0, -4);
+			pensp.graphics.lineTo(0, 4);
+			pensp.graphics.endFill();
+			pensp.graphics.beginFill(0xC3C3C3);
+			pensp.graphics.drawRect(40, -9, 8, 18);
+			pensp.graphics.endFill();
+			pensp.graphics.lineStyle(2, 0x535353);
+			pensp.graphics.moveTo(0, 0);
+			pensp.graphics.lineTo(18, 0);
+			pensp.graphics.beginFill(0x535353);
+			pensp.graphics.drawCircle(18,0,1);
+			pensp.graphics.endFill();
+			pensp.rotation -= 45;
+			pensp.x = 162;
+			pensp.y = 420-70;
+						
+			
+			
+>>>>>>> ccaa775c44d9c38a97443a28be53aa1d791d940d
 			
 			//铅笔工具
 			pencil.name = "pencil";
@@ -298,7 +350,11 @@ package {
 		//绘制画板
 		private function drawPic() {
 			pic.x = 360;
+<<<<<<< HEAD
 			pic.y = 0;
+=======
+			pic.y = 0;
+>>>>>>> ccaa775c44d9c38a97443a28be53aa1d791d940d
 			pic.name ='pic';
 			pic.graphics.beginFill(0xFFFFFF);
 			pic.graphics.drawRect(0, 0, 920, 720);
@@ -336,6 +392,7 @@ package {
 			picArr.push(newPic);
 			pic.addChild(newPic);
 			newPic.graphics.moveTo(e.localX, e.localY);
+<<<<<<< HEAD
 			pic.addEventListener(MouseEvent.MOUSE_MOVE, moveHd);
 			
 			if (currentTool == "pen"){
@@ -344,6 +401,16 @@ package {
 			
 			
 			
+=======
+			pic.addEventListener(MouseEvent.MOUSE_MOVE, moveHd);
+			
+			if (currentTool == "pen"){
+				
+			}
+			
+			
+			
+>>>>>>> ccaa775c44d9c38a97443a28be53aa1d791d940d
 			
 			//橡皮擦按下后立即生效			
 			if (currentTool == "brush") {
@@ -360,7 +427,11 @@ package {
 		}
 
 		//画图区域抬起鼠标事件处理函数
+<<<<<<< HEAD
 		private function upHd(e: MouseEvent) {
+=======
+		private function upHd(e: MouseEvent) {
+>>>>>>> ccaa775c44d9c38a97443a28be53aa1d791d940d
 			
 			pic.removeEventListener(MouseEvent.MOUSE_MOVE, moveHd);
 		}
@@ -484,8 +555,13 @@ package {
 					break;
 
 					//钢笔
+<<<<<<< HEAD
 				case "pen":
 					
+=======
+				case "pen":
+					
+>>>>>>> ccaa775c44d9c38a97443a28be53aa1d791d940d
 				   break;
 
 					//铅笔

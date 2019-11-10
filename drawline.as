@@ -11,9 +11,15 @@
 		private var _space: uint = 20;
 
 		public function drawline() {
+<<<<<<< HEAD
 			//三种粗细的实线
 			for (var i: uint = 1; i <= 3; i++)
 				drawsolidline(i);
+=======
+			//三种粗细的实线
+			for (var i: uint = 1; i <= 3; i++)
+				drawsolidline(i);
+>>>>>>> ccaa775c44d9c38a97443a28be53aa1d791d940d
 			//三种颜色的实线
 			drawsolidline(1, 0x0000FF);
 			drawsolidline(1, 0x00FF00);
@@ -24,7 +30,11 @@
 
 			refreshLayout();
 
+<<<<<<< HEAD
 		}
+=======
+		}
+>>>>>>> ccaa775c44d9c38a97443a28be53aa1d791d940d
 		
 		//对各条线进行排版
 		private function refreshLayout(): void {
@@ -39,7 +49,11 @@
 				child.y = _space + lastChild.y + lastChild.height;
 				lastChild = child;
 			}
+<<<<<<< HEAD
 		}
+=======
+		}
+>>>>>>> ccaa775c44d9c38a97443a28be53aa1d791d940d
 		
         //画实线
 		private function drawsolidline(_thickness: uint = 1, _color: uint = 0x666666): void {
@@ -48,7 +62,11 @@
 			child.graphics.lineTo(_length, 0);
 			addChild(child);
 		}
+<<<<<<< HEAD
         
+=======
+        
+>>>>>>> ccaa775c44d9c38a97443a28be53aa1d791d940d
 		//画虚线
 		private function drawdottedline(_thickness: uint = 1, _color: uint = 0x666666, _linespace: uint = 5, _linelength: uint = 5): void {
 			var child: Shape = new Shape();
@@ -69,8 +87,13 @@
 
 			}
 			addChild(child);
+<<<<<<< HEAD
 		}
 		
+=======
+		}
+		
+>>>>>>> ccaa775c44d9c38a97443a28be53aa1d791d940d
 		//画带点的虚线
 		private function drawdottedline2(_thickness: uint = 1, _color: uint = 0x666666, _linespace: uint = 7, _linelength: uint = 5): void {
 			var child: Shape = new Shape();
@@ -102,8 +125,13 @@
 
 			}
 			addChild(child);
+<<<<<<< HEAD
 		}
 		
+=======
+		}
+		
+>>>>>>> ccaa775c44d9c38a97443a28be53aa1d791d940d
 		//画波浪线（贝塞尔曲线）
 		private function drawwavyline(_thickness: uint = 1, _color: uint = 0x666666, _linelength: uint = 10): void {
 			var child: Shape = new Shape();
@@ -111,12 +139,21 @@
 			var _x: uint = 0;
 			while (true) {
 				child.graphics.curveTo(_x+ _linelength / 2, -5, _x+_linelength, 0);
+<<<<<<< HEAD
 				_x += _linelength;
 				if (_x >= _length) 
 					break;
 				child.graphics.curveTo(_x+_linelength / 2, 5,_x+_linelength, 0);
 				_x += _linelength;
 				if (_x >= _length) 
+=======
+				_x += _linelength;
+				if (_x >= _length) 
+					break;
+				child.graphics.curveTo(_x+_linelength / 2, 5,_x+_linelength, 0);
+				_x += _linelength;
+				if (_x >= _length) 
+>>>>>>> ccaa775c44d9c38a97443a28be53aa1d791d940d
 					break;
 
 			}

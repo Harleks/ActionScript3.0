@@ -14,9 +14,15 @@
 			this.stage.addEventListener(MouseEvent.MOUSE_DOWN, downHd);
 
 		}
+<<<<<<< HEAD
 		private function downHd(e: MouseEvent) {
 			var newPic: MovieClip = new MovieClip();
 			picArr.push(newPic);
+=======
+		private function downHd(e: MouseEvent) {
+			var newPic: MovieClip = new MovieClip();
+			picArr.push(newPic);
+>>>>>>> ccaa775c44d9c38a97443a28be53aa1d791d940d
 			this.stage.addChild(newPic);
 			downX = e.localX;
 			downY = e.localY;

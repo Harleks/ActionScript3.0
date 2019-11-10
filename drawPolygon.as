@@ -40,8 +40,13 @@ package
 		private var polygon: SimpleButton = new SimpleButton(); //正多边形按钮
 		private var polygonsp: Shape = new Shape(); //正多边形按钮上的图形
 		private var polygonalstar: SimpleButton = new SimpleButton(); //实心正多角星按钮
+<<<<<<< HEAD
 		private var polygonalstarsp: Shape = new Shape(); //实心正多角星按钮上的图形
 		private var holepolygonalstar: SimpleButton = new SimpleButton(); //空心正多角星按钮
+=======
+		private var polygonalstarsp: Shape = new Shape(); //实心正多角星按钮上的图形
+		private var holepolygonalstar: SimpleButton = new SimpleButton(); //空心正多角星按钮
+>>>>>>> ccaa775c44d9c38a97443a28be53aa1d791d940d
 		private var holepolygonalstarsp: Shape = new Shape(); //空心正多角星按钮上的图形
 		private var fillColorPicker: ColorPicker = new ColorPicker(); //颜色选择
 		private var lineColorPicker: ColorPicker = new ColorPicker(); //颜色选择
@@ -67,7 +72,11 @@ package
 			drawSlider();
 			//注册鼠标单击侦听函数			
 			polygon.addEventListener(MouseEvent.CLICK, chooseTool);
+<<<<<<< HEAD
 			polygonalstar.addEventListener(MouseEvent.CLICK, chooseTool);
+=======
+			polygonalstar.addEventListener(MouseEvent.CLICK, chooseTool);
+>>>>>>> ccaa775c44d9c38a97443a28be53aa1d791d940d
 			holepolygonalstar.addEventListener(MouseEvent.CLICK, chooseTool);
 			initPolygon();
 
@@ -134,9 +143,15 @@ package
 			polygonalstar.y = 20 + 60 + 10;
 			addChild(polygonalstar);
 
+<<<<<<< HEAD
 			polygonalstarsp.graphics.lineStyle(1, 0xC3C3C3);
 			polygonalstarsp.graphics.beginFill(0xC3C3C3);
 			i = 0;
+=======
+			polygonalstarsp.graphics.lineStyle(1, 0xC3C3C3);
+			polygonalstarsp.graphics.beginFill(0xC3C3C3);
+			i = 0;
+>>>>>>> ccaa775c44d9c38a97443a28be53aa1d791d940d
 			angle = Math.PI * ( 0.5);
 			while (i <= 5)
 			{
@@ -144,6 +159,7 @@ package
 				a = 180 + 25 * Math.cos(angle);
 				b = 120 + 25 * Math.sin(angle);
 				if (i == 0) polygonalstarsp.graphics.moveTo(a, b);
+<<<<<<< HEAD
 				polygonalstarsp.graphics.lineTo(a, b);
 				
 				angle += Math.PI /5;
@@ -174,11 +190,47 @@ package
 				if (i == 0) holepolygonalstarsp.graphics.moveTo(a, b);
 				holepolygonalstarsp.graphics.lineTo(a, b);
 				i++;
+=======
+				polygonalstarsp.graphics.lineTo(a, b);
+				
+				angle += Math.PI /5;
+				a = 180 + 10 * Math.cos(angle);
+				b = 120 + 10 * Math.sin(angle);
+				polygonalstarsp.graphics.lineTo(a, b);
+				i++;
+			}
+			polygonalstarsp.graphics.endFill();
+			
+			//空心正多角星工具
+			holepolygonalstar.name = "holepolygonalstar";
+			holepolygonalstar.downState = new BtnStatusShape2(0x303030, 60, 60);
+			holepolygonalstar.overState = new BtnStatusShape2(0x303030, 60, 60);
+			holepolygonalstar.upState = new BtnStatusShape2(0x535353, 60, 60);
+			holepolygonalstar.hitTestState = holepolygonalstar.upState;
+			holepolygonalstar.x = 150;
+			holepolygonalstar.y = 20 + 60 + 10+70;
+			addChild(holepolygonalstar);
+
+			holepolygonalstarsp.graphics.lineStyle(2, 0xC3C3C3);
+			i = 0;
+			while (i <= 5)
+			{
+				angle = Math.PI * (+0.5 - 1 / 5 + (5 - 1) * 4 * i / 5);
+				a = 180 + 25 * Math.cos(angle);
+				b = 120+70 + 25 * Math.sin(angle);
+				if (i == 0) holepolygonalstarsp.graphics.moveTo(a, b);
+				holepolygonalstarsp.graphics.lineTo(a, b);
+				i++;
+>>>>>>> ccaa775c44d9c38a97443a28be53aa1d791d940d
 			}
 			//调整工具图案和指示框的层次
 			addChild(toolBox);
 			addChild(polygonsp);
+<<<<<<< HEAD
 			addChild(polygonalstarsp);
+=======
+			addChild(polygonalstarsp);
+>>>>>>> ccaa775c44d9c38a97443a28be53aa1d791d940d
 			addChild(holepolygonalstarsp);
 		}
 
@@ -319,9 +371,15 @@ package
 					break;
 				case "polygonalstar":
 					_drawPolygonalStar();
+<<<<<<< HEAD
 					break;
 				case"holepolygonalstar":
 					_drawHolePolygonalStar();
+=======
+					break;
+				case"holepolygonalstar":
+					_drawHolePolygonalStar();
+>>>>>>> ccaa775c44d9c38a97443a28be53aa1d791d940d
 				break;
 				default:
 					_drawPolygon();
@@ -388,7 +446,11 @@ package
 			var coun: uint = 0; //画到第几个点了
 			var _n = 2 * n - 1; //2n-1正角星
 			var jd: Number = Math.PI * (-0.5 - 1 / _n); //画到这个点的角度
+<<<<<<< HEAD
 			newPic.graphics.lineStyle(lineWideLength, currentLineColor);
+=======
+			newPic.graphics.lineStyle(lineWideLength, currentLineColor);
+>>>>>>> ccaa775c44d9c38a97443a28be53aa1d791d940d
 			newPic.graphics.beginFill(0xFFFFFF);
 			newPic.graphics.moveTo(_x + r * Math.cos(jd), _y + r * Math.sin(jd));
 			while (coun <= _n)
@@ -398,7 +460,11 @@ package
 				var bb = _y + r * Math.sin(jd);
 				newPic.graphics.lineTo(aa, bb);
 				coun++;
+<<<<<<< HEAD
 			}
+=======
+			}
+>>>>>>> ccaa775c44d9c38a97443a28be53aa1d791d940d
 			newPic.graphics.endFill();
 			addChild(newPic);
 		}

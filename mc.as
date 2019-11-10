@@ -2,7 +2,11 @@
 
 	import flash.display.MovieClip;
 	import flash.events.MouseEvent;
+<<<<<<< HEAD
 	import flash.display.SimpleButton;
+=======
+	import flash.display.SimpleButton;
+>>>>>>> ccaa775c44d9c38a97443a28be53aa1d791d940d
 	import flash.display.Graphics;
 
 
@@ -24,7 +28,11 @@
 
 			btn.hitTestState = btn.upState;
 
+<<<<<<< HEAD
 			addChild(btn);
+=======
+			addChild(btn);
+>>>>>>> ccaa775c44d9c38a97443a28be53aa1d791d940d
 			btn.addEventListener(MouseEvent.CLICK, clickhd);
 
 			//initialize();

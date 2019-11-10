@@ -107,11 +107,19 @@
 				newRightControlPoint.x = e.stageX;
 				newRightControlPoint.y = e.stageY;
 				newRightControlPoint.name = 'rpoint'.concat(rightControlPointArr.length);
+<<<<<<< HEAD
 				rightControlPointArr.push(newRightControlPoint);
 				if (rightControlPointArr.length == 1)
 				{
 					stage.addChild(rightControlPointArr[rightControlPointArr.length-1]);
 				}
+=======
+				rightControlPointArr.push(newRightControlPoint);
+				if (rightControlPointArr.length == 1)
+				{
+					stage.addChild(rightControlPointArr[rightControlPointArr.length-1]);
+				}
+>>>>>>> ccaa775c44d9c38a97443a28be53aa1d791d940d
 				else if (rightControlPointArr.length > 1)
 				{
 					stage.addChild(rightControlPointArr[rightControlPointArr.length-2]);
