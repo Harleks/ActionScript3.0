@@ -268,6 +268,8 @@
 
 		private function drawArchimedes(e: Event)
 		{
+			
+			if(frameNum>1000000)frameNum=0;
 			lineSp.graphics.clear();
 			frameNum++;
 			lineSp.rotation -= rotationSpeed;
