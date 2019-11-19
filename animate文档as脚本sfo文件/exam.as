@@ -1,7 +1,6 @@
 ﻿﻿
 package
 {
-
 	import flash.display.MovieClip;
 	import flash.display.Graphics;
 	import flash.display.Shape;
